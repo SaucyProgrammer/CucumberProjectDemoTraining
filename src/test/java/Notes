@@ -1,0 +1,83 @@
+
+
+
+- To use or implement the Cucumber framework we must first in either intellij or eclipse download the plugin from market place called ****
+    -"Gherkins".
+
+- Gherkin is a domain specific language that has a very well defined syntax.***
+
+- In our maven dependencies we must paste:
+                                      -- cucumber for java
+                                      -- cucumber.io
+
+---Feature files are contained in the resources folder on the test project folder level ********
+--- Feature files must end with ".feature" for our feature in our automation code. Its like writing our feature file like a epic or test plan
+  and the smaller scenarios as user stories.
+  --- This BDD style framework is implemented on top of the code, this is basically the description. ****
+
+  --The naming convention of feature files should be lower case with snake case (underscores). As a example: login.feature, or home_page.feature*****
+     --- Also the feature file and the "Feature:" key word inside the file cannot have the same name****
+---syntax:
+            -- "Feature:" anything here is the title of the feature file.**
+
+   -- Within the feature file:
+
+         - Keyword: "Scenario" **
+
+              -- Scenario's are like written "test cases":
+
+                              "Given"       -Get the system into a particular state.
+
+                              "When"        -Perform some action
+
+                              "Then"        -Examine the new state
+
+                               "And"        - Is used when two steps are similar or one step is correlates directly with the next
+
+                               theres optional "And" and "But" if you have more steps.
+
+
+-Running tests from "runners" package:
+create a empty class with a @RunWith() annotation above your class name.
+ -- inside @RunWith place @RunWith(Cucumber.class)*****
+ -- Underneath that use @CucumberOptions() annotation, with the class path inside the () braces using
+
+     ---"features=", use relative path to the resources folder to that features file
+     ---"glue" path to test cases
+
+      //Now we must locate the test class by using "glue" that imports it to the corresponding features file.
+      //-We use the path to content root option to get the path to the file.
+             //
+             //--The path to our search.feature folder is from resource package using relative path.***
+
+
+
+After creating these files and handling the warning in the cucumber.properties file, then cucumber will printout a snippet of code we can
+use to customize these methods:  ******
+
+
+
+
+
+"@Given("I am on the home page")
+ public void i_am_on_the_home_page() {
+     // Write code here that turns the phrase above into concrete actions
+     throw new io.cucumber.java.PendingException();
+ }
+ @When("I search for a Blouse")
+ public void i_search_for_a_blouse() {
+     // Write code here that turns the phrase above into concrete actions
+     throw new io.cucumber.java.PendingException();
+ }
+ @Then("I should see the blouse when I land on the results page")
+ public void i_should_see_the_blouse_when_i_land_on_the_results_page() {
+     // Write code here that turns the phrase above into concrete actions
+     throw new io.cucumber.java.PendingException();
+ }
+
+
+ Process finished with exit code -1
+"
+
+IMPORTANT NOTE:
+//If using Cucumber Framework we use JUNIT asserts! not testng! ****

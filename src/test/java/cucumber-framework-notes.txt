@@ -1,0 +1,13 @@
+Cucumber framework overview:
+
+Cucumber framework components:
+- feature files -- documentation
+- step definition classes -- test cases
+- runner class -- classes that run the test cases, they are identical to xml in testng / are used to config running tests
+
+Basic work flow of cucumber framework:
+ - create a feature file
+ -- add scenario/s to the feature file
+ --- generate snippet/s for steps class
+       -- create a steps definition class for the features you want to run
+ ----- create a runner class to configure running your tests
