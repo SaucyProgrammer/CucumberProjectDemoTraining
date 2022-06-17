@@ -11,13 +11,14 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
+/** Singleton design**/
 public class Driver {
 
 
 
-        public static ThreadLocal<WebDriver> drivers = new ThreadLocal<>();
+        public static ThreadLocal<WebDriver> drivers = new ThreadLocal<>(); //supports safe thread browsers
 
-        private Driver() {
+        private Driver() { //Prevents this driver class from creating objects
         }
 
         public static synchronized WebDriver getDriver() {
