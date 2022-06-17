@@ -1,8 +1,8 @@
 package utilities;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
+
 
 public class PropertyReader {
 
@@ -10,18 +10,18 @@ public class PropertyReader {
 
     static {
         properties = new Properties();
-        FileInputStream fis = null;
+        FileInputStream fls = null;
         try {
-            fis = new FileInputStream("globalVars.properties");
-            properties.load(fis);
-            fis.close();
+            fls = new FileInputStream("config.properties");
+            properties.load(fls);
+            fls.close();
         }  catch (IOException e) {
             e.printStackTrace();
         }
 
     }
-    public static String getProperties(String key){
-
+    public static String getTheProperties(String key){
         return properties.getProperty(key);
     }
+
 }
