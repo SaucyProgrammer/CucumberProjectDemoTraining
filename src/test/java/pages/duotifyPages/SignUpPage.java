@@ -34,6 +34,22 @@ public class SignUpPage {
     @FindBy(id="password2")
     public WebElement password2;
 
-    @FindBy(id="registerButton")
+    @FindBy(name="registerButton")
     public WebElement registerButton;
+
+    //Added these to for flow of db to ui:
+
+
+    @FindBy(id="loginUsername")
+    public WebElement loginUsername;
+
+    @FindBy(id="loginPassword")
+    public WebElement loginPassword;
+
+    @FindBy(name="loginButton")
+    public WebElement loginButton;
+
+
+
+
 }

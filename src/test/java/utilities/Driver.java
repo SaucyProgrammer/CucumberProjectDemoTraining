@@ -26,7 +26,7 @@ public class Driver {
             if (drivers.get() == null) {
                 String browser = System.getProperty( "browser" );
                 if (browser == null) {
-                    browser = PropertyReader.getTheProperties( "browser" );
+                    browser = PropertyReader.properties.getProperty("browser");
                 }
 
                 switch (browser.toLowerCase()) {

@@ -9,7 +9,9 @@ import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 @CucumberOptions(
 
-        tags = "@db",
+        tags = "@dbFlowToUi",
+//"@datable"
+//@db - datamapping
 //        "@search or all",
         //"@search "will only run scenarios with the given tag
         //"@search or productDetails" will runs scenarios that have it separately on their own scenario
@@ -20,7 +22,7 @@ import org.junit.runner.RunWith;
 
         glue ="stepDefinitions",
 
-        dryRun = true, //step definitions is skipped, used for generating snippets without running the code.
+      //  dryRun = true, //step definitions is skipped, used for generating snippets without running the code. This allows us to run datatables
 
         plugin = {"pretty",
                   "html:target/built-in-report/built-in-report.html",//generates a built in html report

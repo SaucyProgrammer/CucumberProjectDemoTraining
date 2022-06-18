@@ -2,21 +2,17 @@ package stepDefinitions;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
-import io.cucumber.java.Scenario;
-import org.openqa.selenium.WebDriver;
-import pages.Homepage;
 import utilities.DBUtility;
+import utilities.Driver;
 
 import java.time.Duration;
 
 public class Hooks {
-    WebDriver driver;
-
     @Before
     public void setUpTests(){
-        driver.manage().timeouts().implicitlyWait( Duration.ofSeconds( 5 ) );
-        driver.manage().window().maximize();
-        driver.manage().deleteAllCookies();
+        Driver.getDriver().manage().timeouts().implicitlyWait( Duration.ofSeconds( 5 ) );
+        Driver.getDriver().manage().window().maximize();
+      //  Driver.getDriver().manage().deleteAllCookies();
 
     }
 
@@ -29,13 +25,30 @@ public class Hooks {
     }
 
     @After ("@db")
-    public void tearDownDB(Scenario scenario){
+    public void tearDownDB(){
         DBUtility.close();
     }
 
 
-    @After
-    public void tearDownSession(){
-        driver.quit();
+
+    @Before("@datable")
+    public void setUpDBTests(){
+        DBUtility.createConnection();
+
+
     }
+
+    @After ("@datable")
+    public void tearDownDBTests(){
+        DBUtility.close();
+    }
+
+
+
+
+
+//    @After
+//    public void tearDownSession(){
+//        driver.quit();
+//    }
 }

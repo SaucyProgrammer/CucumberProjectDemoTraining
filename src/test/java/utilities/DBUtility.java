@@ -1,34 +1,41 @@
 package utilities;
 
 
-import java.sql.*;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
 public class DBUtility {
-
-
-    private static Connection connection;
-    private static Statement statement;
+    private static Connection connection ;
+    private static Statement statement ;
     private static ResultSet resultSet;
 
-    public static void createConnection() {
 
-        String url = PropertyReader.getTheProperties("db_url");
-        String user = PropertyReader.getTheProperties("db_username");
-        String password = PropertyReader.getTheProperties("db_password");
+    public static void createConnection()  {
+
+        String url = "jdbc:mysql://db-duotech.cc652zs7kmja.us-east-2.rds.amazonaws.com/duotify";
+
+
+
 
         try {
-            connection = DriverManager.getConnection(url, user, password);
-        } catch (SQLException e) {
+
+
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(url, "duotech", "duotech2021");
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
-
     public static void close() {
-
         try {
             if (resultSet != null) {
                 resultSet.close();
@@ -43,9 +50,7 @@ public class DBUtility {
             e.printStackTrace();
         }
     }
-
     private static void executeQuery(String query) {
-
         try {
             statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
         } catch (SQLException e) {
@@ -57,30 +62,22 @@ public class DBUtility {
             e.printStackTrace();
         }
     }
-
     public static int updateQuery(String query) throws SQLException {
-
         try {
             statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         int result = statement.executeUpdate(query);
-
         if(result==0){
             throw new RuntimeException("Update was unsuccessful.");
         }
         return result;
     }
-
     public static List<List<Object>> getQueryResultAsListOfLists(String query) {
-
         executeQuery(query);
         List<List<Object>> rowList = new ArrayList<>();
-
         ResultSetMetaData rsmd;
-
         try {
             rsmd = resultSet.getMetaData();
             while (resultSet.next()) {
@@ -95,13 +92,10 @@ public class DBUtility {
         }
         return rowList;
     }
-
     public static List<Map<String, Object>> getQueryResultListOfMaps(String query) {
-
         executeQuery(query);
         List<Map<String, Object>> rowList = new ArrayList<>();
         ResultSetMetaData rsmd;
-
         try {
             rsmd = resultSet.getMetaData();
             while (resultSet.next()) {
@@ -116,9 +110,7 @@ public class DBUtility {
         }
         return rowList;
     }
-
     public static List<String> getColumnNames(String query) {
-
         executeQuery(query);
         List<String> columns = new ArrayList<>();
         ResultSetMetaData rsmd;
@@ -133,11 +125,8 @@ public class DBUtility {
         }
         return columns;
     }
-
     public static int getRowCount() {
-
         int rowCount = 0;
-
         try {
             resultSet.last();
             rowCount = resultSet.getRow();
@@ -147,5 +136,5 @@ public class DBUtility {
         }
         return rowCount;
     }
-
 }
+
