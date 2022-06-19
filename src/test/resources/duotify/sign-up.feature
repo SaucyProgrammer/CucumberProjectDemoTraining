@@ -1,10 +1,8 @@
-
+﻿
 
 
 Feature: Sign up features
 
-
-  @db
   Scenario: Verify user sign up
     Given I am on the duotify homepage
     When I sign up using valid credentials
@@ -56,19 +54,16 @@ Feature: Sign up features
 @dbFlowToUi
   Scenario Outline: Verify user sign up flow from DB to UI
     Given I create a new user in the Database with the following details
-      | username   | first   | last   | email   | password   |
-      | <username> | <first> | <last> | <email> | <password> |
+      | username   | firstName   | lastName   | email   | password   |
+      | <username> | <firstName> | <lastName> | <email> | <password> |
     When I login with the same credentials on the UI
     Then I should be able to land on the homepage
     And firstname, lastname and email should be correct
     Examples:
 
-      | username    | first      | last      | email                 | password    |
-      | efairbairn0 | Erick      | Fairbairn | efairbairn0@mapy.cz   | HBilzYuRC   |
-      | bfould1     | Bernadette | Foul      | d	bfould1@slate.com   | kIneodYPt9p |
-      | mbeacroft2  | Mason      | Beacroft  | mbeacroft2@google.ru  | WBBApKgB    |
-      | hwilkisson3 | Hanni      | Wilkisson | hwilkisson3@ask.com   | GTpRjQ9Qng  |
-      | hgreder4    | Hanna      | Greder    | hgreder4@china.com.cn | xPhjzFc6    |
+      | username | firstName | lastName    | email                  | password    |
+      | Zakzaddy11 | Zaki      | darweschzad | zak.darwesch@yahoo.com | zak12345678 |
+
 
 
 

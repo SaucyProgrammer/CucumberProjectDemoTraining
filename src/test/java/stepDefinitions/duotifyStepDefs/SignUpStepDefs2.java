@@ -38,15 +38,15 @@ public class SignUpStepDefs2 {
         Map<String,String> map = dataTable.get(0);
 
         expectedUserN = map.get( "username" );
-        expectedFirstN = map.get( "first" );
-        expectedLastN = map.get( "last" );
+        expectedFirstN = map.get( "firstName" );
+        expectedLastN = map.get( "lastName" );
         expectedEmail1 = map.get( "email" );
         expectedPassword1 = map.get( "password" );
 
         hexPass =  DigestUtils.md5Hex( expectedPassword1 );//Creates a password using md5hash
 
-        String queryCreate = "insert into users(username, first,Last,email,password)\n"+
-                        "values('"+expectedUserN+"', '"+expectedFirstN+"', '"+expectedLastN+"', '"+expectedEmail1+"', '"+DigestUtils.md5Hex( expectedPassword1 )+"')"; //dynamic query, allows us to pass parameters or data
+        String queryCreate = "insert into users(username, firstName,lastName,email,password)\n"+
+                        "values('"+expectedUserN+"', '"+expectedFirstN+"', '"+expectedLastN+"', '"+expectedEmail1+"', '"+hexPass+"')"; //dynamic query, allows us to pass parameters or data
 
         DBUtility.updateQuery( queryCreate );
 
@@ -55,7 +55,7 @@ public class SignUpStepDefs2 {
     }
     @When("I login with the same credentials on the UI")
     public void i_login_with_the_same_credentials_on_the_ui() throws InterruptedException {
-
+        Driver.getDriver().get( "http://qa-duotify.us-east-2.elasticbeanstalk.com/register.php" );
         SignUpPage signUpPage1 = new SignUpPage();
 
        signUpPage1.loginUsername.sendKeys( expectedUserN );
@@ -64,7 +64,7 @@ public class SignUpStepDefs2 {
 
         signUpPage1.loginPassword.sendKeys( expectedPassword1 );
 
-        Thread.sleep( 1000 );
+        Thread.sleep( 2000 );
 
         signUpPage1.loginButton.click();
 
@@ -73,13 +73,17 @@ public class SignUpStepDefs2 {
 
     /** Actual validation method to allow us to test the data we were given **/
     @Then("firstname, lastname and email should be correct")
-    public void firstname_lastname_and_email_should_be_correct() throws SQLException {
+    public void firstname_lastname_and_email_should_be_correct() throws SQLException, InterruptedException {
 
         HomePageDuo homepage = new HomePageDuo();
 
         String [] arr = homepage.nameFirstAndLast.getText().split( " " ); // this will verify the text
+        Thread.sleep( 3000 );
 
+        homepage.nameFirstAndLast.click();
         homepage.UserDetails.click();
+
+        Thread.sleep( 2000 );
 
        String actualEmail  = homepage.emailInput.getAttribute("value");
 
@@ -96,5 +100,9 @@ public class SignUpStepDefs2 {
 
 
     }
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 
 }

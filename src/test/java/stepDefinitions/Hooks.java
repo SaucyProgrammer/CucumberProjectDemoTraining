@@ -45,6 +45,20 @@ public class Hooks {
 
 
 
+    @Before("@dbBusinessLogic")
+    public void setUpDB2(){
+        DBUtility.createConnection();
+
+
+    }
+
+    @After ("@dbBusinessLogic")
+    public void tearDownDB2(){
+        DBUtility.close();
+    }
+
+
+
 
 
 //    @After

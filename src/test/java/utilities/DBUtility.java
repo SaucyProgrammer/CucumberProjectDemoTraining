@@ -27,10 +27,9 @@ public class DBUtility {
 
 
         try {
-
-
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(url, "duotech", "duotech2021");
+
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -62,17 +61,20 @@ public class DBUtility {
             e.printStackTrace();
         }
     }
-    public static int updateQuery(String query) throws SQLException {
+    public static void updateQuery(String query) throws SQLException {
         try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String url = "jdbc:mysql://db-duotech.cc652zs7kmja.us-east-2.rds.amazonaws.com/duotify";
+            connection = DriverManager.getConnection(url, "duotech", "duotech2021");
             statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         int result = statement.executeUpdate(query);
         if(result==0){
             throw new RuntimeException("Update was unsuccessful.");
         }
-        return result;
+        System.out.println(result);
     }
     public static List<List<Object>> getQueryResultAsListOfLists(String query) {
         executeQuery(query);
