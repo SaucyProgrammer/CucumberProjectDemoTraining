@@ -10,6 +10,7 @@ Feature: Search Bar Functionality
   # IMPORTANT: There can only be on background keyword in a feature file
 
 
+
   @search @product @blouse
   Scenario: Product search
 
