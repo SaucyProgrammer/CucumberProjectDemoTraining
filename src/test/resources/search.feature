@@ -17,14 +17,14 @@ Feature: Search Bar Functionality
     Then  I should see the Blouse when I land on the results page
 
 
-  @search @product
+  @search @product @smoke
   Scenario: Product search
 
     When  I search for a Printed Dress
     Then  I should see the Printed Dress when I land on the results page
 
 
-  @search @printedSummer
+  @search @printedSummer @smoke
   Scenario: Product search
 
     When  I search for a Printed Summer Dress

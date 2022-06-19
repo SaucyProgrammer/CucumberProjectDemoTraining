@@ -15,7 +15,13 @@ Feature: Business logic and rules
       | plays      |
 
 
-    @db
+   @smoke
     Scenario: Verify Unicode support
       When I update the last name of the user with the username "duotech" with "片仮名"
       Then the value should be updated correctly
+
+
+      @db
+      Scenario: Verify business logic for duplicate usernames
+        When I send a query to retrieve all usernames
+        Then the usernames column should not contain duplicates

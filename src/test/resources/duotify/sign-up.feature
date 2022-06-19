@@ -2,7 +2,7 @@
 
 
 Feature: Sign up features
-
+  @db
   Scenario: Verify user sign up
     Given I am on the duotify homepage
     When I sign up using valid credentials
@@ -11,7 +11,7 @@ Feature: Sign up features
 
 
 
-  @datable
+  @db
   Scenario: Verify user sign up using Datatable
 
     Given I am on the duotify homepage
@@ -23,7 +23,7 @@ Feature: Sign up features
 
 
 
-  @datable @mockaRooDataTable
+  @datable @mockaRooDataTable @smoke @db
   Scenario Outline: Verify user sign up using Datatable
 
     Given I am on the duotify homepage
@@ -51,7 +51,7 @@ Feature: Sign up features
 
 
 
-@dbFlowToUi
+@dbFlowToUi @dbFlow @db
   Scenario Outline: Verify user sign up flow from DB to UI
     Given I create a new user in the Database with the following details
       | username   | firstName   | lastName   | email   | password   |

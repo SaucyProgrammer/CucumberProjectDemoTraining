@@ -6,7 +6,10 @@ import org.testng.Assert;
 import utilities.DBUtility;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class BusinessLogicAndRules {
 
@@ -63,4 +66,64 @@ public class BusinessLogicAndRules {
 
 
     }
+
+   //-------------------------------------------------------------------------------------------------------------------------------------------
+
+
+  /** In this example we are looking for duplicates on the website database domain to make sure that there are none. **/
+  //Store the list of usernames in a list of objects to be worked on later to remove duplicate values
+
+
+  List<String> list2;
+
+
+   @When("I send a query to retrieve all usernames")
+   public void i_send_a_query_to_retrieve_all_usernames() {
+
+       //Use the query from database and store it into a list of lists of object
+      List<List<Object>> listOfUsers = DBUtility.getQueryResultAsListOfLists("SELECT username from users;"  );
+
+      //created a second list to operate on with strings
+       list2 = new ArrayList<>();
+
+       for (List<Object>  eachUser : listOfUsers) {
+           list2.add( eachUser.get( 0 ).toString() );
+           
+       }
+
+       //Sorts in ascending order
+       Collections.sort( list2 );
+
+
+
+
+   }
+    @Then("the usernames column should not contain duplicates")
+    public void the_usernames_column_should_not_contain_duplicates() {
+
+       boolean hasDuplicate = true;
+
+       //then we iterate through the list
+        for (int i = 0; i < list2.size() ; i++) {
+
+            //This checks for duplicates
+            if (list2.get( i ).equals( list2.get( i+1 ) )) {
+
+                hasDuplicate = false;
+                System.out.println("Duplicates presents.");
+                break ;
+
+
+            }
+
+        }
+
+        Assert.assertTrue( hasDuplicate);
+    }
+
+    /** The query for checking for duplicates: **/
+
+  //  select username from users group by username having count(*) >1;
+
+
 }
