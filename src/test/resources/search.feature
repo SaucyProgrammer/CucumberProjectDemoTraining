@@ -31,3 +31,4 @@ Feature: Search Bar Functionality
     When  I search for a Printed Summer Dress
     Then  I should see the Printed Summer Dress when I land on the results page
 
+#Should work
